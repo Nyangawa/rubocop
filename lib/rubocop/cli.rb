@@ -41,6 +41,14 @@ module RuboCop
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def run(args = ARGV)
       @options, paths = Options.new.parse(args)
+      if @options[:ignore_config]
+        invalidate_const = lambda do |klass, sym|
+          klass.send :remove_const, sym if klass.const_defined? sym
+          klass.const_set sym, '/dev/null'
+        end
+        invalidate_const.call(ConfigLoader, :DOTFILE)
+        invalidate_const.call(ConfigLoader, :AUTO_GENERATED_FILE)
+      end
       validate_options_vs_config
       act_on_options
       apply_default_formatter

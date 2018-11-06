@@ -73,6 +73,12 @@ module RuboCop
 
     def to_inspect?(file, hidden_files, base_dir_config)
       return false if base_dir_config.file_to_exclude?(file)
+
+      if @options.key? :exclude
+        @options[:exclude].each do |pattern|
+          return false if file.include?(pattern)
+        end
+      end
       return true if !hidden_files.include?(file) && ruby_file?(file)
 
       base_dir_config.file_to_include?(file)

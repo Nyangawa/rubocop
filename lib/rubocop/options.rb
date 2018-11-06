@@ -72,6 +72,10 @@ module RuboCop
         add_aliases(opts)
 
         option(opts, '-s', '--stdin FILE')
+
+        option(opts, '--exclude PATTERN1,PATTERN2', Array)
+
+        option(opts, '--ignore-config')
       end
     end
 
@@ -435,7 +439,11 @@ module RuboCop
       parallel: ['Use available CPUs to execute inspection in',
                  'parallel.'],
       stdin: ['Pipe source from STDIN, using FILE in offense',
-              'reports. This is useful for editor integration.']
+              'reports. This is useful for editor integration.'],
+      exclude: ['Exclude specific pattern in file path, useful',
+                'for excluding tests like /spec/'],
+      ignore_config: ['Ignore all config file in .rubocop.yml and',
+                      '.rubocop_todo.yml']
     }.freeze
   end
 end
