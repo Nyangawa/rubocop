@@ -130,6 +130,8 @@ module RuboCop
 
         status = enabled_line?(loc.line) ? correct(node) : :disabled
 
+        return if Severity.new(severity) > Severity.new(:C)
+
         @offenses << Offense.new(severity, loc, message, name, status)
         yield if block_given? && status != :disabled
       end
