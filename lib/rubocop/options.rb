@@ -76,6 +76,7 @@ module RuboCop
         option(opts, '--exclude PATTERN1,PATTERN2', Array)
 
         option(opts, '--ignore-config')
+        option(opts, '--ignore-rubocop-comment')
       end
     end
 
@@ -443,7 +444,8 @@ module RuboCop
       exclude: ['Exclude specific pattern in file path, useful',
                 'for excluding tests like /spec/'],
       ignore_config: ['Ignore all config file in .rubocop.yml and',
-                      '.rubocop_todo.yml']
+                      '.rubocop_todo.yml'],
+      ignore_rubocop_comment: ['Ignore all magic comment like rubocop:disable']
     }.freeze
   end
 end
